@@ -1,0 +1,25 @@
+get:
+  tags:
+    - user
+  summary: ユーザ詳細
+  description: ""
+  operationId: userGet
+  parameters:
+    - name: id
+      in: path
+      description: "ユーザID"
+      required: true
+      schema:
+        type: string
+        example: "001"
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              user:
+                $ref: "../index.yml#/components/schemas/user"

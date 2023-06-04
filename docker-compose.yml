@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    ports:
+      - "8001:8080"
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./dist:/dist
+    environment:
+      SWAGGER_JSON: /dist/service1/openapi.yml
+      # URLS: '[{name: "service1", url: "/dist/service1/openapi.yml"}, {name: "service2", url: "/dist/service2/openapi.yml" }]'
+  swagger-script:
+    image: node:18-alpine
+    working_dir: /script
+    volumes:
+      - ./swagger-script:/script
+      - ./src:/src:cached
+      - ./dist:/dist
+    command: sh -c "yarn && yarn node index.js"
+  redocly-redoc:
+    image: redocly/redoc
+    environment:
+      PAGE_TITLE: redoc sample
+      SPEC_URL: /openapi.yml
+    ports:
+      - "8003:80"
+    volumes:
+      - ./dist/service2/openapi.yml:/usr/share/nginx/html/openapi.yml

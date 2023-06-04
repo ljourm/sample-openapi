@@ -1,0 +1,6 @@
+parameters:
+  $ref: "./parameters/index.yml"
+schemas:
+  $ref: "./schemas/index.yml"
+examples:
+  $ref: "./examples/index.yml"

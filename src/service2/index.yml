@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: ""
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.0
+servers:
+  - url: https://example.com/api/v1
+    description: ""
+tags:
+  - name: user
+    description: ""
+paths:
+  $ref: "./paths/index.yml"
+components:
+  $ref: "./components/index.yml"

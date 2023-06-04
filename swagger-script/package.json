@@ -1,0 +1,11 @@
+{
+  "name": "swagger-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "chokidar": "^3.5.3",
+    "js-yaml": "^4.1.0"
+  }
+}

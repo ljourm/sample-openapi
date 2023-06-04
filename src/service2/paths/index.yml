@@ -1,0 +1,4 @@
+/users:
+  $ref: "./users.yml"
+/users/{id}:
+  $ref: "./user.yml"
