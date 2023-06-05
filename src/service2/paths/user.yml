@@ -5,6 +5,7 @@ get:
   description: ""
   operationId: userGet
   parameters:
+    - $ref: "../index.yml#/components/parameters/xRequestIdHeader"
     - name: id
       in: path
       description: "ユーザID"
@@ -23,3 +24,7 @@ get:
             properties:
               user:
                 $ref: "../index.yml#/components/schemas/user"
+            required:
+              - user
+    404:
+      $ref: "../index.yml#/components/responses/404NotFound"

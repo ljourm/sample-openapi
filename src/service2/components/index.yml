@@ -2,5 +2,7 @@ parameters:
   $ref: "./parameters/index.yml"
 schemas:
   $ref: "./schemas/index.yml"
+responses:
+  $ref: "./responses/index.yml"
 examples:
   $ref: "./examples/index.yml"

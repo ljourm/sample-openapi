@@ -1,2 +1,4 @@
 limitParam:
   $ref: "./limitParam.yml"
+xRequestIdHeader:
+  $ref: "./xRequestIdHeader.yml"
