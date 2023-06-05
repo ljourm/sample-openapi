@@ -24,3 +24,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/hoge"
+components:
+  schemas:
+    hoge:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string

@@ -1,11 +1,15 @@
 {
-  "name": "swagger-parser",
+  "name": "swagger-script",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "license": "MIT",
+  "scripts": {
+    "watch": "node lib/watch.js"
+  },
   "devDependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
     "chokidar": "^3.5.3",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "openapi-typescript": "^6.2.6"
   }
 }

@@ -14,20 +14,26 @@ services:
     environment:
       SWAGGER_JSON: /dist/service1/openapi.yml
       # URLS: '[{name: "service1", url: "/dist/service1/openapi.yml"}, {name: "service2", url: "/dist/service2/openapi.yml" }]'
+  redocly-redoc:
+    image: redocly/redoc
+    depends_on:
+      - swagger-script
+    environment:
+      PAGE_TITLE: redoc sample
+      SPEC_URL: /service2/openapi.yml
+    ports:
+      - "8003:80"
+    volumes:
+      - ./dist/service2:/usr/share/nginx/html/service2
   swagger-script:
     image: node:18-alpine
     working_dir: /script
     volumes:
       - ./swagger-script:/script
+      - script_node_modules:/script/node_modules
       - ./src:/src:cached
-      - ./dist:/dist
-    command: sh -c "yarn && yarn node index.js"
-  redocly-redoc:
-    image: redocly/redoc
-    environment:
-      PAGE_TITLE: redoc sample
-      SPEC_URL: /openapi.yml
-    ports:
-      - "8003:80"
-    volumes:
-      - ./dist/service2/openapi.yml:/usr/share/nginx/html/openapi.yml
+      - ./dist:/dist:cached
+    command: sh -c "yarn && yarn watch"
+
+volumes:
+  script_node_modules:
