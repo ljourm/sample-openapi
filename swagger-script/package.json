@@ -4,11 +4,13 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "watch": "node lib/watch.js"
+    "generate": "node lib/generate.js",
+    "watch": "node lib/generate.js --watch"
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
     "chokidar": "^3.5.3",
+    "commander": "^10.0.1",
     "js-yaml": "^4.1.0",
     "openapi-typescript": "^6.2.6"
   }

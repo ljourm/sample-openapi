@@ -1,11 +1,15 @@
 import SwaggerParser from "@apidevtools/swagger-parser";
 import jsYaml from "js-yaml";
 import chokidar from "chokidar";
+import { program } from "commander";
 
 import { logInfo, logError, writeFile } from "./util.js";
 import config from "../config.js";
 
 import openApiTS from "openapi-typescript";
+
+program.option("--watch").parse();
+const options = program.opts();
 
 /**
  * 分割されたOpenAPIファイルを読み込み、一つにマージした結果を出力し、さらにTypeScriptの型定義ファイルを出力する
@@ -13,7 +17,7 @@ import openApiTS from "openapi-typescript";
  * @param {string} distOpenApiPath - 出力するOpenAPIファイルのパス
  * @param {string} distTsSchemaPath - 出力するTypeScriptの型定義ファイルのパス
  */
-const generate = async (srcOpenApiPath, distOpenApiPath, distTsSchemaPath) => {
+const generate = async ({ srcOpenApiPath, distOpenApiPath, distTsSchemaPath }) => {
   try {
     // バリデーション。マージ結果がオブジェクト型で返却される
     const spec = await SwaggerParser.validate(srcOpenApiPath);
@@ -49,16 +53,25 @@ const watchFiles = (watchPath, callback) => {
   });
 };
 
-config.targets.forEach((target) => {
-  const run = () => {
-    generate(target.srcOpenApiPath, target.distOpenApiPath, target.distTsSchemaPath);
-  };
-
-  // 起動直後にファイルを生成しておく
-  run();
-
-  // 以降はファイルの変更を監視して、変更があればファイルを生成する
-  watchFiles(target.watchPath, () => {
-    run();
+const main = async () => {
+  // ファイルを生成する
+  config.targets.forEach((target) => {
+    generate(target);
   });
-});
+
+  // --watchが指定されていない場合は終了
+  if (!options.watch) {
+    return;
+  }
+
+  // watchが有効な場合はファイルを変更監視し、変更があればファイルを再生成する
+  config.targets.forEach((target) => {
+    logInfo("watching", target.watchPath);
+
+    watchFiles(target.watchPath, () => {
+      generate(target);
+    });
+  });
+};
+
+main();

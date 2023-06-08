@@ -28,3 +28,12 @@ $ docker-compose up
 |swagger-ui|SwaggerUIを起動する|http://localhost:8002|
 |redocly-redoc|ReDocを起動する (SwaggerUIと機能が重複。今回はサンプルとして両方配置)|http://localhost:8003|
 |swagger-script|src配下を監視し、変更があったらdistにマージしたOpenAPIの定義ファイルとTypeScriptの型定義ファイルを出力する|-|
+
+### docker-composeを起動せず、swagger-scriptのみを実行する場合
+
+```sh
+$ docker-compose run --rm swagger-script yarn generate
+
+# watchもしたい場合
+$ docker-compose run --rm swagger-script yarn generate --watch
+```
