@@ -10,10 +10,11 @@ services:
     ports:
       - "8002:8080"
     volumes:
-      - ./dist:/dist
+      - ./dist/service1/openapi.yml:/openapi-service1.yml
+      - ./dist/service2/openapi.yml:/openapi-service2.yml
     environment:
-      SWAGGER_JSON: /dist/service1/openapi.yml
-      # URLS: '[{name: "service1", url: "/dist/service1/openapi.yml"}, {name: "service2", url: "/dist/service2/openapi.yml" }]'
+      SWAGGER_JSON: /openapi-service1.yml
+      URLS: '[{name: "service1", url: "/openapi-service1.yml"}, {name: "service2", url: "/openapi-service2.yml"}]'
   redocly-redoc:
     image: redocly/redoc
     depends_on:
